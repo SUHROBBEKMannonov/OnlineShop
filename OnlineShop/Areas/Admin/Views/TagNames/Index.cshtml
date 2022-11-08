@@ -1,0 +1,39 @@
+﻿@using OnlineShop.Models
+@model IEnumerable<OnlineShop.Models.SpecialTag>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["title"] = "Index";
+}
+<br />
+<br />
+<div class="row">
+        <div class="col-6">
+                <h2 class="text-info">Special Tag List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-info" ><i class="bi bi-plus-square"></i>  &nbsp  New Tag Name</a>
+        </div>
+</div>
+<div>
+          <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        @Html.DisplayNameFor(expression:c=>c.Name)
+                    </th>
+                    <th></th>
+             </tr>
+                 @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <partial name="_ButtonPartialTagName" model="@item.Id"/>
+                    </td>
+                </tr>
+            }
+          </table>
+
+</div>
