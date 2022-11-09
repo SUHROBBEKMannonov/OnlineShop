@@ -78,7 +78,37 @@ namespace OnlineShop.Areas.Customer.Controllers
             }
             products.Add(product);
             HttpContext.Session.Set("products", products);
-            return View(product);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public ActionResult Remove(int? id)
+        {
+            List<Products> products = HttpContext.Session.Get<List<Products>>("products");
+            if (products !=null)
+            {
+                var product = products.FirstOrDefault(c => c.Id==id);
+                if (product != null)
+                {
+                    products.Remove(product);
+                    HttpContext.Session.Set("products", products);
+                }
+            }
+           
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Get product card action method
+
+        public IActionResult Cart()
+        {
+            List<Products> products = HttpContext.Session.Get<List<Products>>("products");
+            if (products == null)
+            {
+                products = new List<Products>();
+            }
+
+            return View(products);
         }
     }
 }
